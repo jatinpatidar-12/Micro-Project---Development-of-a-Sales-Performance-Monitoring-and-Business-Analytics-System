@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sales Performance & Business Analytics</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="brand"><span class="brand-mark">SA</span><div><strong>SalesAnalytics</strong><small>PERFORMANCE SUITE</small></div></div>
+    <nav>
+      <a class="active" href="#dashboard">▦ <span>Dashboard</span></a>
+      <a href="#records">▤ <span>Sales records</span></a>
+      <a href="#import">⇧ <span>Import data</span></a>
+    </nav>
+    <div class="sidebar-note"><span class="live-dot"></span> Local database active</div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div><p class="eyebrow">BUSINESS OVERVIEW</p><h1>Sales performance</h1><p class="subhead">Monitor results, understand trends, and make better decisions.</p></div>
+      <div class="top-actions"><button class="btn btn-light" id="exportBtn">↓ Export CSV</button><label class="btn btn-primary upload-label" for="fileInput">＋ Upload data</label><input id="fileInput" type="file" accept=".csv,.json" hidden></div>
+    </header>
+
+    <section class="toolbar">
+      <div><strong>Overview</strong><span class="muted"> · All uploaded sales records</span></div>
+      <div class="filters"><label>From <input type="date" id="fromDate"></label><label>To <input type="date" id="toDate"></label><button class="btn btn-light btn-small" id="resetFilters">Reset</button></div>
+    </section>
+
+    <section class="stats-grid" id="dashboard">
+      <article class="stat-card"><div class="stat-top"><span>Total revenue</span><span class="stat-icon purple">₹</span></div><strong id="revenue">₹0</strong><small>Revenue from filtered records</small></article>
+      <article class="stat-card"><div class="stat-top"><span>Units sold</span><span class="stat-icon blue">▥</span></div><strong id="units">0</strong><small>Total quantity sold</small></article>
+      <article class="stat-card"><div class="stat-top"><span>Orders</span><span class="stat-icon green">▣</span></div><strong id="orders">0</strong><small>Number of sales records</small></article>
+      <article class="stat-card"><div class="stat-top"><span>Average order value</span><span class="stat-icon orange">↗</span></div><strong id="average">₹0</strong><small>Revenue divided by orders</small></article>
+    </section>
+
+    <section class="charts-grid">
+      <article class="panel chart-panel"><div class="panel-heading"><div><h2>Revenue trend</h2><p>Revenue over time</p></div><span class="pill">Daily</span></div><div class="chart-wrap"><canvas id="revenueChart"></canvas><div class="empty-chart" id="revenueEmpty">Upload sales data to see your revenue trend.</div></div></article>
+      <article class="panel chart-panel"><div class="panel-heading"><div><h2>Sales by product</h2><p>Revenue contribution</p></div></div><div class="chart-wrap doughnut-wrap"><canvas id="productChart"></canvas><div class="empty-chart" id="productEmpty">Product breakdown will appear here.</div></div></article>
+    </section>
+
+    <section class="panel records-panel" id="records">
+      <div class="records-heading"><div><h2>Sales records</h2><p>Manage your uploaded transactions</p></div><div class="record-actions"><input id="searchInput" class="search" type="search" placeholder="Search product or customer…"><button class="btn btn-danger-outline btn-small" id="deleteAllBtn">Delete all</button></div></div>
+      <div class="table-scroll"><table><thead><tr><th>Date</th><th>Product</th><th>Customer</th><th>Quantity</th><th>Unit price</th><th>Total</th><th></th></tr></thead><tbody id="recordsBody"><tr><td colspan="7" class="empty-row">No sales data yet. Upload a CSV file to get started.</td></tr></tbody></table></div>
+      <div class="table-footer"><span id="recordCount">0 records</span><span>Data is saved in this browser</span></div>
+    </section>
+
+    <section class="panel import-panel" id="import">
+      <div class="import-copy"><span class="import-icon">⇧</span><div><h2>Import your sales data</h2><p>Upload a CSV or JSON file. Your records are saved locally and remain available after closing the browser.</p></div></div>
+      <label class="btn btn-primary" for="fileInput">Choose file</label>
+      <div class="format-note">CSV columns: <code>date, product, customer, quantity, unit_price</code><br>JSON: an array of objects with the same fields.</div>
+    </section>
+    <footer>Sales Performance Monitoring &amp; Business Analytics System <span>Micro Project</span></footer>
+  </main>
+  <div class="toast" id="toast" role="status"></div>
+  <script src="app.js"></script>
+</body>
+</html>
